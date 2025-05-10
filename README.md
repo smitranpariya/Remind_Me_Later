@@ -22,6 +22,5 @@ python app.py
 {
   "date": "YYYY-MM-DD",
   "time": "HH:MM:SS",
-  "message": "Your reminder message",
-  "reminder_type": "email/sms"
+  "message": "Your reminder message"
 }
