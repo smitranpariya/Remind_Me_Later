@@ -15,7 +15,6 @@ class Reminder(db.Model):
     date = db.Column(db.String(10), nullable=False)
     time = db.Column(db.String(8), nullable=False)
     message = db.Column(db.Text, nullable=False)
-    reminder_type = db.Column(db.String(10), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 # Create DB tables
@@ -27,7 +26,7 @@ with app.app_context():
 def create_reminder():
     data = request.get_json()
 
-    required_fields = ['date', 'time', 'message', 'reminder_type']
+    required_fields = ['date', 'time', 'message']
     for field in required_fields:
         if field not in data:
             return jsonify({'error': f"'{field}' is required"}), 400
@@ -35,8 +34,7 @@ def create_reminder():
     new_reminder = Reminder(
         date=data['date'],
         time=data['time'],
-        message=data['message'],
-        reminder_type=data['reminder_type']
+        message=data['message']
     )
 
     db.session.add(new_reminder)
@@ -47,7 +45,6 @@ def create_reminder():
         'date': new_reminder.date,
         'time': new_reminder.time,
         'message': new_reminder.message,
-        'reminder_type': new_reminder.reminder_type,
         'created_at': new_reminder.created_at.isoformat()
     }), 201
 
